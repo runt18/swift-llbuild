@@ -29,7 +29,7 @@ class RuleResult(Base):
     dependencies = sqlalchemy.orm.relationship('RuleDependency')
 
     def __repr__(self):
-        return "%s%r" % (
+        return "{0!s}{1!r}".format(
             self.__class__.__name__, (self.id, self.key, self.value,
                                       self.built_at, self.computed_at))
 
@@ -42,7 +42,7 @@ class RuleDependency(Base):
     key = Column(String, nullable=False)
 
     def __repr__(self):
-        return "%s%r" % (
+        return "{0!s}{1!r}".format(
             self.__class__.__name__, (self.id, self.rule_id, self.key))
 
 def main():
@@ -69,8 +69,8 @@ def main():
     def get_key_name(key):
         name = node_names.get(key)
         if name is None:
-            node_names[key] = name = 'N%d' % (
-                len(node_names) - len(input_rules),)
+            node_names[key] = name = 'N{0:d}'.format(
+                len(node_names) - len(input_rules))
         return name
 
     # First, find all the "inputs" (leaf nodes).
@@ -79,7 +79,7 @@ def main():
                    if not rule.dependencies]
 
     # Assign all of the inputs special names.
-    node_names.update((rule.key, "I%d" % (i,))
+    node_names.update((rule.key, "I{0:d}".format(i))
                       for i,rule in enumerate(input_rules))
 
     seen_rules = set()
@@ -92,7 +92,7 @@ def main():
         if not dep_names:
             seen_inputs.add(name)
         else:
-            print "build %s: CAT %s" % (name, " ".join(dep_names))
+            print "build {0!s}: CAT {1!s}".format(name, " ".join(dep_names))
         seen_rules.add(name)
         seen_nodes.update(dep_names)
     print
@@ -100,19 +100,19 @@ def main():
     # Write a build statement to create all the inputs, so we can actually
     # execute the build.
     print "rule make-inputs"
-    print "  command = touch %s" % " ".join(sorted(seen_inputs))
+    print "  command = touch {0!s}".format(" ".join(sorted(seen_inputs)))
     print "build make-inputs: make-inputs"
     print
 
     # Write out a default target with the roots.
     roots = seen_rules - seen_nodes
-    print "default %s" % (" ".join(roots),)
+    print "default {0!s}".format(" ".join(roots))
 
     # Write the mappings, if requested.
     if args.show_mapping:
         print
         for key,name in sorted(node_names.items()):
-            print "# %s -> %s" % (key, name)
+            print "# {0!s} -> {1!s}".format(key, name)
 
 if __name__ == '__main__':
     main()

@@ -89,7 +89,7 @@ class DataDrivenEngine(llbuild.BuildEngine):
         rule_name = data["kind"] + "Rule"
         rule_class = self.namespace.get(rule_name)
         if rule_class is None:
-            raise RuntimeError("invalid rule: %r" % (data,))
+            raise RuntimeError("invalid rule: {0!r}".format(data))
         return rule_class(*data['args'])
 
     def task_is_complete(self, task, data, force_change=False):

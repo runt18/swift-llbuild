@@ -17,10 +17,10 @@ def message(msg):
         print >>sys.stdout, msg
 def note(msg):
     with _outputLock:
-        print >>sys.stderr, "note: %s" % msg
+        print >>sys.stderr, "note: {0!s}".format(msg)
 def error(msg):
     with _outputLock:
-        print >>sys.stderr, "error: %s" % msg
+        print >>sys.stderr, "error: {0!s}".format(msg)
 
 def get_stat_info(path):
     try:
