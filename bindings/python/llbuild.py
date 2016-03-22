@@ -223,8 +223,8 @@ class BuildEngine(_HandledObject):
         path = _Data(path)
         if not libllbuild.llb_buildengine_attach_db(
                 self._engine, path.key, schema_version, error):
-            raise IOError("unable to attach database; %r" % (
-                ffi.string(error),))
+            raise IOError("unable to attach database; {0!r}".format(
+                ffi.string(error)))
         
     def close(self):
         """

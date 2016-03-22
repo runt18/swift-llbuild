@@ -43,7 +43,7 @@ source_suffix = '.rst'
 master_doc = 'contents'
 
 # General information about the project.
-copyright = u'%s, %s' % (datetime.datetime.now().year, project_author)
+copyright = u'{0!s}, {1!s}'.format(datetime.datetime.now().year, project_author)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -167,7 +167,7 @@ html_show_sourcelink = True
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '%sdoc' % project
+htmlhelp_basename = '{0!s}doc'.format(project)
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -181,7 +181,7 @@ htmlhelp_basename = '%sdoc' % project
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('contents', '%s.tex' % project, u'%s Documentation' % project,
+  ('contents', '{0!s}.tex'.format(project), u'{0!s} Documentation'.format(project),
    project_author, 'manual'),
 ]
 
